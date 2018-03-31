@@ -47,7 +47,7 @@ public class TabRoute {
                     Platform.runLater(() -> TabRoute.this.nodeList.get(TabRoute.this.focusIndexItem).requestFocus());
                 }
             }
-            // если это кнопка то по енеру нажимаем
+            // если это кнопка то по ENTER нажимаем
             if (event.getCode() == KeyCode.ENTER && event.getSource() instanceof Button) {
                 ((Button) event.getSource()).fire();
             }
@@ -79,27 +79,14 @@ public class Controller implements Initializable {
     public TextField tf4;
     public TextField tf5;
     public TextField tf6;
-    public GridPane root;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        bt2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Platform.exit();
-            }
-        });
-        bt1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        tf3.requestFocus();
-                    }
-                });
-            }
-        });
+
+        bt2.setOnAction(event -> Platform.exit());
+
+        bt1.setOnAction(event -> Platform.runLater(() -> tf3.requestFocus()));
+
         // использование: Создаем Объект TabRoute
         // и добавляем в него контролы, фокус перехода  по умолчанию от начала с писка в конец,
         // если котрол помечен fоcusable переходы начинаются с него
