@@ -2,12 +2,19 @@ package sample.tabroute;
 
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class TabRoute {
 
@@ -60,3 +67,54 @@ public class TabRoute {
         node.setOnMouseClicked(event -> TabRoute.this.focusIndexItem = e - 1);
     }
 }
+
+public class Controller implements Initializable {
+
+    TabRoute tabRoute;
+    public Button bt2;
+    public Button bt1;
+    public TextField tf1;
+    public TextField tf2;
+    public TextField tf3;
+    public TextField tf4;
+    public TextField tf5;
+    public TextField tf6;
+    public GridPane root;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        bt2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Platform.exit();
+            }
+        });
+        bt1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        tf3.requestFocus();
+                    }
+                });
+            }
+        });
+        // использование: Создаем Объект TabRoute
+        // и добавляем в него контролы, фокус перехода  по умолчанию от начала с писка в конец,
+        // если котрол помечен fоcusable переходы начинаются с него
+
+        Platform.runLater(() -> tf3.requestFocus());
+        tabRoute = new TabRoute();
+        tabRoute.addNode(tf1);
+        tabRoute.addNode(tf2);
+        tabRoute.addNode(tf3);
+        tabRoute.addNode(tf4);
+        tabRoute.addNode(tf5);
+        tabRoute.addNode(tf6);
+        tabRoute.addNode(bt1);
+        tabRoute.addNode(bt2);
+
+    }
+}
+
